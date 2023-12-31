@@ -2,7 +2,9 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MyD3Component from "./MyD3Component";
 import MyMultiSeriesD3Component from "./MyMultiSeriesD3Component";
+import MyMapComponent from "./MyMapComponent"; // Import the map component
 import MainPage from "./MainPage";
+import storesGeoJson from "./stores.geojson"; // Import GeoJSON data
 import "./App.css";
 
 function App() {
@@ -73,11 +75,15 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/chart" element={<MyD3Component data={sampleData} />} />
-          {/* New Route for Multi-Series Graph */}
           <Route
             path="/multiseries"
             element={<MyMultiSeriesD3Component data={multiSeriesData} />}
           />
+          <Route
+            path="/map"
+            element={<MyMapComponent geojsonData={storesGeoJson} />}
+          />{" "}
+          {/* New Map Route */}
         </Routes>
       </div>
     </Router>

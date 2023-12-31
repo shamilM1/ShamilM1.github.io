@@ -1,0 +1,50 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "name": "Location A" },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-0.09, 51.505]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Location B" },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-0.08, 51.505]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Route 1" },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-0.09, 51.505],
+          [-0.08, 51.505],
+          [-0.08, 51.503],
+          [-0.09, 51.503]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Area 1" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-0.09, 51.505],
+            [-0.09, 51.503],
+            [-0.07, 51.503],
+            [-0.07, 51.505],
+            [-0.09, 51.505]
+          ]
+        ]
+      }
+    }
+  ]
+}
