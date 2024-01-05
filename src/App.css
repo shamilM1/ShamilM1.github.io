@@ -36,3 +36,42 @@
     transform: rotate(360deg);
   }
 }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.tooltip {
+  pointer-events: none;
+  position: absolute;
+  text-align: center;
+  padding: 8px;
+  font: 12px sans-serif;
+  background: white;
+  border: solid 1px #aaa;
+  border-radius: 4px;
+  pointer-events: none;
+}
+.data-table {
+  border-collapse: collapse;
+  width: auto;
+  font-size: 12px;
+}
+
+.data-table th,
+.data-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.data-table th {
+  background-color: #f2f2f2;
+}

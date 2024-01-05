@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MyD3Component from "./MyD3Component";
-import MyMultiSeriesD3Component from "./MyMultiSeriesD3Component";
-import MyMapComponent from "./MyMapComponent"; // Import the map component
+import MySingleSeriesD3Component from "./MySingleSeriesD3Component";
 import MainPage from "./MainPage";
-import storesGeoJson from "./stores.geojson"; // Import GeoJSON data
 import "./App.css";
+import MyChartJSComponent from "./MyChartJSComponent";
+import GoogleChart from "./GoogleChart";
 
 function App() {
   const sampleData = [
@@ -20,53 +20,61 @@ function App() {
     { category: "4K Monitor", value: 67 },
     { category: "LED TV", value: 49 },
   ];
-  const months = [
+
+  const foodData = [
+    { category: "Apples", value: 1.99 },
+    { category: "Bananas", value: 0.49 },
+    { category: "Milk", value: 2.49 },
+    { category: "Bread", value: 2.19 },
+    { category: "Eggs", value: 1.79 },
+    { category: "Chicken Breast", value: 3.99 },
+    { category: "Rice", value: 4.99 },
+    { category: "Pasta", value: 1.29 },
+    { category: "Tomatoes", value: 1.29 },
+    { category: "Cheese", value: 2.99 },
+  ];
+
+  const sampleData2 = [
+    { title: "The Matrix", rating: 8.7 },
+    { title: "The Shawshank Redemption", rating: 9.3 },
+    { title: "The Godfather", rating: 9.2 },
+    { title: "Jurassic Park", rating: 7.0 },
+    { title: "Avatar", rating: 7.8 },
+    { title: "Titanic", rating: 7.5 },
+    { title: "The Avengers", rating: 8.0 },
+    { title: "The Lion King", rating: 8.5 },
+    { title: "Home Alone", rating: 6.7 },
+    { title: "Transformers", rating: 6.0 },
+    { title: "The Room", rating: 3.7 },
+    { title: "Birdemic: Shock and Terror", rating: 1.8 },
+  ];
+  const daysOfWeek = [
     "Monday",
     "Tuesday",
-    "Wednesdey",
+    "Wednesday",
     "Thursday",
     "Friday",
     "Saturday",
     "Sunday",
   ];
 
-  const generateSeasonalData = (base, peak, range, phaseShift) => {
-    return months.map((month, index) => {
-      // Create a sinusoidal pattern to simulate seasonal trends
-      const sinValue = Math.sin(((index + phaseShift) / 12) * 2 * Math.PI);
-      // Peak in the middle of the year and lower at the beginning and end
+  const generateDayOfWeekData = (base, peak, range, phaseShift) => {
+    return daysOfWeek.map((day, index) => {
+      const sinValue = Math.sin(((index + phaseShift) / 7) * 2 * Math.PI);
       const offset = sinValue * peak;
       const value = base + offset + (index % 2 === 0 ? range / 2 : -range / 2);
       return {
-        category: month,
-        value: Math.max(0, value), // Ensure values don't go negative
+        category: day,
+        value: Math.max(0, value),
       };
     });
   };
 
   const multiSeriesData = [
     {
-      series: "Laptop",
-      values: generateSeasonalData(100, 50, 5, 0), // Base of 50, peak of 20, random range of 30
-    },
-    {
-      series: "Smartphone",
-      values: generateSeasonalData(100, 30, 14, 0), // Base of 60, peak of 30, random range of 20
-    },
-    {
-      series: "Tablets",
-      values: generateSeasonalData(80, 30, 10, 0), // Base of 60, peak of 30, random range of 20
-    },
-    {
-      series: "Smartwatch",
-      values: generateSeasonalData(50, 40, 50, 0), // Base of 60, peak of 30, random range of 20
-    },
-    {
       series: "Speakers",
-      values: generateSeasonalData(40, 30, 0, 0), // Base of 60, peak of 30, random range of 20
+      values: generateDayOfWeekData(40, 25, 10, 0),
     },
-
-    // ... (more series with their own patterns)
   ];
 
   return (
@@ -74,16 +82,26 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/chart" element={<MyD3Component data={sampleData} />} />
+          <Route path="/D3" element={<MyD3Component data={sampleData} />} />
           <Route
-            path="/multiseries"
-            element={<MyMultiSeriesD3Component data={multiSeriesData} />}
+            path="/ChartJs"
+            element={<MyChartJSComponent data={sampleData2} />}
           />
           <Route
-            path="/map"
-            element={<MyMapComponent geojsonData={storesGeoJson} />}
-          />{" "}
-          {/* New Map Route */}
+            path="/GoogleChart"
+            element={<GoogleChart data={foodData} />}
+          />
+          <Route
+            path="/singleseries"
+            element={
+              <MySingleSeriesD3Component
+                data={multiSeriesData}
+                title="My Awesome Bar Chart"
+                altText="Bar chart showing sales data. Each bar represents the sales of a product over a specified period."
+              />
+            }
+          />
+          {}
         </Routes>
       </div>
     </Router>
